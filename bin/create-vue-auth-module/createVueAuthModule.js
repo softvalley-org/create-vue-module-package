@@ -2,6 +2,11 @@
 
 import fs from 'fs';
 import path from 'path';
+import axiosServiceTemplate from './templates/axiosServiceTemplate.js';
+import changePasswordComponent from './templates/changePasswordComponent.js';
+import loginViewTemplate from './templates/loginViewTemplate.js';
+import authStoreTemplate from './templates/authStoreTemplate.js';
+import tokenStoreTemplate from './templates/tokenStoreTemplate.js';
 
 // Paths
 const modulesPath = path.resolve('src/modules');
@@ -14,55 +19,12 @@ const templates = {
         `${modulesPath}/${authModuleName}/views`,
         `${modulesPath}/${authModuleName}/store`,
     ],
-    axiosServiceTemplate: `import axios from 'axios';
-
-const axiosInstance = axios.create({
-    baseURL: '/api',
-    timeout: 1000,
-});
-
-export default axiosInstance;
-`,
-    changePasswordComponent: `<template>
-  <div>
-    <h1>Change Password</h1>
-  </div>
-</template>
-
-<script setup>
-</script>
-
-<style scoped>
-</style>
-`,
-    loginViewTemplate: `<template>
-  <div>
-    <h1>Login</h1>
-  </div>
-</template>
-
-<script setup>
-</script>
-
-<style scoped>
-</style>
-`,
-    authStoreTemplate: `import { defineStore } from 'pinia';
-
-export const useAuth = defineStore('auth', {
-    state: () => ({
-        isAuthenticated: false,
-    }),
-    actions: {
-        login() {
-            this.isAuthenticated = true;
-        },
-        logout() {
-            this.isAuthenticated = false;
-        },
-    },
-});
-`,
+    axiosServiceTemplate,
+    changePasswordComponent,
+    loginViewTemplate,
+    authStoreTemplate,
+    tokenStoreTemplate,
+    
     newRoute: `
 {
     path: '/login',
@@ -143,6 +105,13 @@ try {
     if (!fs.existsSync(authStorePath)) {
         fs.writeFileSync(authStorePath, templates.authStoreTemplate);
         console.log(`Created file: ${authStorePath}`);
+    }
+    
+    // Create Token store
+    const tokenStorePath = `${modulesPath}/${authModuleName}/store/tokenStore.js`;
+    if (!fs.existsSync(tokenStorePath)) {
+        fs.writeFileSync(tokenStorePath, templates.tokenStoreTemplate);
+        console.log(`Created file: ${tokenStorePath}`);
     }
 
     // Update router file

@@ -1,12 +1,12 @@
 {
   "name": "vue-module-maker",
-  "version": "1.0.14",
+  "version": "1.0.16",
   "private": false,
   "description": "A CLI tool to generate Vue.js module structure",
   "main": "index.js",
   "bin": {
     "create-vue-module": "bin/createModule.js",
-    "create-vue-auth-module": "bin/createVueAuthModule.js"
+    "create-vue-auth-module": "bin/create-vue-auth-module/createVueAuthModule.js"
   },
   "keywords": [
     "vue",
